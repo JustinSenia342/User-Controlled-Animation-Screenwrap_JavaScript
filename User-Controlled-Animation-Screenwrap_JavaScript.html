@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+
+<title>bouncy - beginning animation</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<script type="text/javascript">
+
+var timer;
+var timer_vert;
+var deltaX = 5;		// number of x pixels moved each call
+var left = 0;
+var top = 0;
+var timerOn = false;
+
+function moveBy(objectId, x) {
+	var left = parseInt(document.getElementById(objectId).style.left, 10);
+	document.getElementById(objectId).style.left = (left + x) % posEnd;
+	}
+function moveDown(objectId, x) {
+	var top = parseInt(document.getElementById(objectId).style.top, 10);
+	document.getElementById(objectId).style.top = (top + x) % poshEnd;
+	}
+	
+function startTimer(objectId, startPoint, endPoint, startvert, endvert) {
+	if (document.getElementById && !timerOn) {
+		timerOn = true;
+		var cmd = "moveBy(\'" + objectId + "\', " + deltaX + ")" ;
+		var cmd2 = "moveDown(\'" + objectId + "\', " + deltaX + ")" ;
+		//alert("cmd is: " + cmd);
+		timer =    setInterval(cmd, 50);
+		timer_vert = setInterval(cmd2, 100);
+		}
+	}
+
+/* Bad version of start timer */
+/*
+function startTimer(objectId, startPoint, endPoint){
+        
+		var cmd = "moveBy(\'" + objectId + "\', " + deltaX + ")" ;
+		//alert("cmd is: " + cmd);
+		timer =    setInterval(cmd, 50);
+		}
+*/
+	
+function stopTimer() {
+	timerOn = false;
+	clearInterval(timer);
+	clearInterval(timer_vert);
+	}
+	
+</script>	
+
+</head>
+
+<body bgcolor="#fefefe">
+
+<div id="jack" 
+ style="position: absolute; top: 150px; left: 0px; z-index: 3; width: 100;">
+	<img src="https://images3.wikia.nocookie.net/__cb20090711225648/bodybuilding/images/5/58/Jumping_Jack.gif" 
+		 width="100" height="100" border="0" alt="jumping jack">
+</div>
+
+<div id="brick1" 
+ style="position: absolute; top: 30px; left: 100px; z-index: 1;">
+	<img src="http://www.eddingschronicles.com/fansite/bookh-tree.gif" width="76" 
+		 height="275" border="0" alt="column">
+</div>
+<div id="brick2" 
+ style="position: absolute; top: 200px; left: 300px; z-index: 4;">
+	<img src="http://www.eddingschronicles.com/fansite/bookh-tree.gif" width="76" 
+		 height="75" border="0" alt="column">
+</div>
+<div id="brick3" 
+ style="position: absolute; top: 30px; left: 500px; z-index: 5;">
+	<img src="http://www.eddingschronicles.com/fansite/bookh-tree.gif" width="76" 
+		 height="175" border="0" alt="column">
+</div>
+
+<form style="position: absolute; top: 350px; left: 294px;" action="">
+	<input type="button" value="Start"
+		   onClick="startTimer('jack', posStart, posEnd, poshStart, poshEnd);">
+	<!--<input style="position: absolute; top: 350px; left: 320px;">-->
+	<input type="button" value="Stop"
+		   onClick="stopTimer();">
+</form>
+
+<script language="JavaScript" type="text/javascript">
+	var posStart = 0;
+	var posEnd = 0;
+	var objWidth = 100;	//set width of animated object
+	var objHeight = 100; //set height of animated object
+	var poshStart = 150;
+	var poshEnd = 0;		
+	if(window.innerWidth) {
+		posEnd = window.innerWidth;
+		poshEnd = window.innerHeight;
+	} 
+	else if (window.document.body.clientWidth) {
+		posEnd = window.document.body.clientWidth;
+		poshEnd = window.document.body.clientHeight;
+	}
+
+		//else posEnd = 200;
+	posStart = objWidth;
+	posEnd -= objWidth;
+	poshStart = objHeight;
+	poshEnd -= objHeight;
+</script>
+</body>
+</html>
